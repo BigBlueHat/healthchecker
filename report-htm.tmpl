@@ -65,8 +65,6 @@ article {page-break-after: always}
 
 body {margin:10%;padding:0;font:16px 'Arial';}
 
-#page {position:relative; overflow: hidden;}
-
 h1 {padding-left: 2px;margin-top: 0px;margin-bottom: 0px;font: 25px 'Arial';line-height: 30px;}
 h2 {font: bold 21px 'Arial';line-height: 24px;}
 h3 {font: bold 17px 'Arial';line-height: 19px;}
@@ -75,45 +73,23 @@ ul ul {list-style: none}
 table td {padding:7px}
 
 .ft1{font: italic 19px 'Arial';color: #345a8a;line-height: 15px;}
-.ft6{white-space: nowrap;}
-.ft8{font-weight: bold;line-height: 19px;white-space: nowrap;}
-.ft9{font: 15px 'Arial';line-height: 17px;white-space: nowrap;}
 .ft15{font-weight: bold;line-height: 17px;white-space: nowrap;}
-.ft16{font: 16px 'Symbol';line-height: 29px;}
-.ft17{line-height: 27px;}
-.ft31{background-color:#FFFF00}
-.ft32{background-color:#00FF00}
 
 .p0{padding-left: 2px;margin-top: 0px;margin-bottom: 0px;}
 .p1{padding-left: 2px;margin-top: 40px;margin-bottom: 0px;}
 .p2{padding-left: 2px;margin-top: 3px;margin-bottom: 0px;}
-.p3{padding-left: 2px;margin-top: 35px;margin-bottom: 0px;}
-.p4{padding-left: 2px;margin-top: 34px;margin-bottom: 0px;}
-.p8{padding-left: 74px;padding-right: 306px;margin-top: 0px;margin-bottom: 0px;text-indent: -47px;}
 .p10{margin-top: 0px;margin-bottom: 0px;}
-.p11{margin-top: 35px;margin-bottom: 0px;}
 .p12{margin-top: 38px;margin-bottom: 0px;}
-.p13{margin-top: 30px;margin-bottom: 0px;}
-.p14{margin-top: 34px;margin-bottom: 0px;}
 
-.td0{text-align: left;padding-left: 0px;}
-.td1{text-align: left;padding-left: 9px;}
-.td2{text-align: left;padding-left: 2px;}
-.td3{text-align: left;padding-left: 57px;}
-.td4{text-align: left;padding-left: 0px;}
 .td5, .td6, .td7, .td8, .td9, .td10, .td11, .td12, .tdr, .tdy{border: 1pt solid black;text-align: left;padding-left: 7px;}
-.td18{border-right: #000000 1pt solid;text-align: left;padding-left: 0px;}
 
-.t0, .t1, .t3{border-collapse: collapse;}
-.t0{margin-left: 26px;margin-top: 5px;font: 13px 'Symbol';line-height: 16px;}
+.t1, .t3{border-collapse: collapse;}
 .t1{margin-left: 26px;margin-top: 51px;}
 
 </style>
 </head>
 
 <body>
-<div id="page">
-
 <h1>Couchbase Cluster Health Check Report</h1>
 <p class="p1"><span class="ft1">Tool Version: $globals['versions']</span></p>
 <p class="p0"><span class="ft1">Execution Time: $globals['report_time'].strftime("%Y-%m-%d %H:%M:%S")</span></p>
@@ -264,6 +240,5 @@ table td {padding:7px}
 #end for
 </article>
 #end if
-</div>
 </body>
 </html>
