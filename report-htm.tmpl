@@ -10,6 +10,9 @@ body {margin-top: 0px;margin-left: 0px;font:16px 'Arial'}
 h1 {padding-left: 2px;margin-top: 0px;margin-bottom: 0px;font: 25px 'Arial';color: #17365d;line-height: 30px;}
 h2 {font: bold 21px 'Arial';color: #345a8a;line-height: 24px;}
 h3 {font: bold 17px 'Arial';color: #4f81bd;line-height: 19px;}
+ul {line-height:28px}
+ul ul {list-style: none}
+
 .ft1{font: italic 19px 'Arial';color: #345a8a;line-height: 15px;}
 .ft2{font-weight: bold;line-height: 19px;}
 .ft6{white-space: nowrap;}
@@ -85,40 +88,19 @@ h3 {font: bold 17px 'Arial';color: #4f81bd;line-height: 19px;}
 #set $error_list = $indicator_error[$counter]
 #for $error_values in $error_list:
 <p class="p20"><span class="ft3">$error_values["description"]</span></p>
-<table class="t0">
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Symptom</span></td>
-	<td class="td2"><span class="ft8">&nbsp;</span></td>
-</tr>
+<ul>
+	<li>Symptom
 #for $err_val in sorted($error_values["value"])
-<tr class="tr1">
-	<td class="td0">&nbsp;</td>
-	<td class="td3" colspan=2><span class="ft6">Bucket : $error_values["bucket"] , </span>
-	<span class="ft9">Node : $err_val["node"]</span></td>
-</tr>
-<tr class="tr1">
-	<td class="td0">&nbsp;</td>
-	<td class="td3"><span class="ft6">Value :  </span></td>
-	<td class="td4"><span class="ft9"> $err_val["value"]</span></td>
-</tr>
+    <ul>
+      <li>Bucket : $error_values["bucket"] , Node : $err_val["node"]</li>
+      <li>Value : $err_val["value"]</li>
+    </ul>
 #end for
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Causes -</span></td>
-	<td class="td2"><span class="ft9">$error_values["cause"]</span></td>
-</tr>
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Impact -</span></td>
-	<td class="td2"><span class="ft9">$error_values["impact"]</span></td>
-</tr>
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Action -</span></td>
-	<td class="td2"><span class="ft9">$error_values["action"]</span></td>
-</tr>
-</table>
+  </li>
+  <li>Causes - $error_values["cause"]</li>
+  <li>Impact - $error_values["impact"]</li>
+	<li>Action - $error_values["action"]</li>
+</ul>
 #end for
 #end for
 #end if
@@ -138,9 +120,11 @@ h3 {font: bold 17px 'Arial';color: #4f81bd;line-height: 19px;}
 </tr>
 #end for
 </table>
-<p class="p8"><span class="ft16">&#8226; </span><span class="ft17">Total number of nodes in the cluster: $node_list["numNodes"]["value"] </span></p>
-<p class="p8"><span class="ft16">&#8226; </span><span class="ft17">Number of down nodes: $node_list["numDownNodes"]["value"] </span></p>
-<p class="p8"><span class="ft16">&#8226; </span><span class="ft17">Number of warming up nodes: $node_list["numWarmupNodes"]["value"] </span></p>
+<ul>
+  <li>Total number of nodes in the cluster: $node_list["numNodes"]["value"]</li>
+  <li>Number of down nodes: $node_list["numDownNodes"]["value"]</li>
+  <li>Number of warming up nodes: $node_list["numWarmupNodes"]["value"]</li>
+</ul>
 <h3>Cluster-wide metrics</h3>
 <table class="t1">
 #for $key in sorted($cluster_symptoms.keys())
@@ -217,40 +201,19 @@ h3 {font: bold 17px 'Arial';color: #4f81bd;line-height: 19px;}
 #set $warn_list = $indicator_warn[$counter]
 #for $warn_values in $warn_list
 <p class="p0"><span class="ft3">$warn_values["description"]</span></p>
-<table class="t0">
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Symptom</span></td>
-	<td class="td2"><span class="ft8">&nbsp;</span></td>
-</tr>
+<ul>
+	<li>Symptom
 #for $warn_val in sorted($warn_values["value"])
-<tr class="tr1">
-	<td class="td0">&nbsp;</td>
-	<td class="td3" colspan="2"><span class="ft9">Bucket : $warn_values["bucket"] , </span>
-       <span class="ft9">Node : $warn_val["node"]</span></td>
-</tr>
-<tr class="tr1">
-	<td class="td0">&nbsp;</td>
-	<td class="td3"><span class="ft9">Value : </span></td>
-	<td class="td4"><span class="ft9">$warn_val["value"]</span></td>
-</tr>
+    <ul>
+      <li>Bucket : $warn_values["bucket"] , Node : $warn_val["node"]</li>
+      <li>Value : $warn_val["value"]</li>
+    </ul>
 #end for
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Causes -</span></td>
-	<td class="td2"><span class="ft9">$warn_values["cause"]</span></td>
-</tr>
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Impact -</span></td>
-	<td class="td2"><span class="ft9">$warn_values["impact"]</span></td>
-</tr>
-<tr class="tr0">
-	<td class="td0">&#8226;</td>
-	<td class="td1"><span class="ft6">Action -</span></td>
-	<td class="td2"><span class="ft9">$warn_values["action"]</span></td>
-</tr>
-</table>
+  </li>
+  <li>Causes - $warn_values["cause"]</li>
+  <li>Impact - $warn_values["impact"]</li>
+  <li>Action - $warn_values["action"]</li>
+</ul>
 #end for
 #end for
 #end if
