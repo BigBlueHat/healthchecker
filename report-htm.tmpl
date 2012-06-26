@@ -1,7 +1,61 @@
 <!doctype html>
 <html>
 <head><title>sample-report-v2</title>
-<style type="text/css" media="all">
+<style media="print">
+/* --------------------------------------------------------------
+Based on Hartija & Priss CSS Print  Frameworks
+-------------------------------------------------------------- */
+
+body {
+width:100% !important;
+margin:0 !important;
+padding:0 !important;
+line-height: 1.4;
+word-spacing:1.1pt;
+letter-spacing:0.2pt;
+font-family: Arial, sans-serif;
+color: #000;
+background: none;
+font-size: 12pt;
+}
+
+/*Headings */
+h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; }
+h1{font-size:19pt;}
+h2{font-size:17pt;}
+h3{font-size:15pt;}
+h4,h5,h6{font-size:12pt;}
+
+code { font: 10pt Courier, monospace; }
+blockquote { margin: 1.3em; padding: 1em;  font-size: 10pt; }
+hr { background-color: #ccc; }
+
+/* Images */
+img { float: left; margin: 1em 1.5em 1.5em 0; }
+a img { border: none; }
+
+/* Links */
+a:link, a:visited { background: transparent; font-weight: 700; text-decoration: underline;color:#333; }
+a:link[href^="http://"]:after, a[href^="http://"]:visited:after { content: " (" attr(href) ") "; font-size: 90%; }
+a[href^="http://"] {color:#000; }
+
+/* Table */
+table { border-collapse: collapse; margin: 1px; text-align:left; page-break-inside: avoid;}
+th { border: 1px solid #333;  font-weight: bold; }
+td { border: 1px solid #333; }
+th,td { padding: 4px 10px 4px 10px; }
+tfoot { font-style: italic; }
+caption { background: #fff; margin-bottom:2em; text-align:left; }
+thead {display: table-header-group;}
+tr {page-break-inside: avoid;}
+
+article {page-break-after: always}
+
+/** Couchbase sepcific styles **/
+.tdr{background-color:#FF0000;color:#FFFFFF}
+.tdy{background-color:#FFFF00}
+</style>
+<style type="text/css" media="screen">
 
 body {margin:10%;padding:0;font:16px 'Arial';}
 
@@ -53,9 +107,6 @@ table td {padding:7px}
 .t1{margin-left: 26px;margin-top: 51px;}
 
 </style>
-<style media="print">
-body {margin:0}
-</style>
 </head>
 
 <body>
@@ -72,6 +123,7 @@ body {margin:0}
 <p class="p2"><span class="ft2">Overall cluster health: </span><span class="ft32">OK</span></p>
 #end if
 #if $indicator_error_exist
+<article>
 <h2>Couchbase &#8211; Alerts</h2>
 <h3>Cluster-wide metrics</h3>
 #for $counter in sorted($indicator_error.keys())
@@ -93,7 +145,9 @@ body {margin:0}
 </ul>
 #end for
 #end for
+</article>
 #end if
+<article>
 <h2>Couchbase Cluster Overview</h2>
 <h3>Node list</h3>
 <table class="t1">
@@ -139,7 +193,6 @@ body {margin:0}
 <table class="t3">
 #for $symptom in sorted($bucket_symptoms[$bucket])
 <tr class="tr6">
-	<td class="td18">&nbsp;</td>
 	<td class="td11">$symptom["description"]</td>
 #if $symptom["status"] == "Error"
 	<td class="tdr">$symptom["value"]</td>
@@ -169,7 +222,6 @@ body {margin:0}
 <table class="t3">
 #for $node_value in sorted($node_values)
 <tr class="tr6">
-	<td class="td18">&nbsp;</td>
 	<td class="td11">$node_value["description"]</td>
 #if $node_value["status"] == "Error"
 	<td class="tdr">$node_value["value"]</td>
@@ -184,7 +236,9 @@ body {margin:0}
 #end for
 #end if
 #end for
+</article>
 #if $indicator_warn_exist
+<article>
 <h2>Couchbase &#8211; Warning Indicators</h2>
 <h3>Cluster-wide metrics</h3>
 #for $counter in sorted($indicator_warn)
@@ -206,6 +260,7 @@ body {margin:0}
 </ul>
 #end for
 #end for
+</article>
 #end if
 </div>
 </body>
