@@ -1,7 +1,7 @@
-<!doctype html system>
-<HTML>
-<HEAD><TITLE>sample-report-v2</TITLE>
-<STYLE type="text/css">
+<!doctype html>
+<html>
+<head><title>sample-report-v2</title>
+<style type="text/css">
 
 body {margin-top: 0px;margin-left: 0px;}
 
@@ -118,204 +118,204 @@ body {margin-top: 0px;margin-left: 0px;}
 .tr12{height: 34px;}
 .tr13{height: 89px;}
 
-.t0{width: 387px;margin-left: 26px;margin-top: 5px;font: 13px 'Symbol';line-height: 16px;}
-.t1{width: 582px;margin-left: 26px;margin-top: 51px;font: 16px 'Arial';line-height: 18px;}
-.t2{width: 583px;margin-left: 24px;font: 16px 'Arial';line-height: 18px;}
-.t3{width: 607px;font: 16px 'Arial';line-height: 18px;}
-.t4{width: 583px;font: 16px 'Arial';line-height: 18px;}
+.t0{border-collapse: collapse;width: 387px;margin-left: 26px;margin-top: 5px;font: 13px 'Symbol';line-height: 16px;}
+.t1{border-collapse: collapse;width: 582px;margin-left: 26px;margin-top: 51px;font: 16px 'Arial';line-height: 18px;}
+.t2{border-collapse: collapse;width: 583px;margin-left: 24px;font: 16px 'Arial';line-height: 18px;}
+.t3{border-collapse: collapse;width: 607px;font: 16px 'Arial';line-height: 18px;}
+.t4{border-collapse: collapse;width: 583px;font: 16px 'Arial';line-height: 18px;}
 
-</STYLE>
-</HEAD>
+</style>
+</head>
 
-<BODY>
-<DIV id="page_1">
+<body>
+<div id="page_1">
 
-<P class="p0"><FONT class="ft0">Couchbase Cluster Health Check Report</FONT></P>
-<P class="p1"><FONT class="ft1">Tool Version: $globals['versions']</FONT></P>
-<P class="p0"><FONT class="ft1">Execution Time: $globals['report_time'].strftime("%Y-%m-%d %H:%M:%S")</FONT></P>
+<p class="p0"><span class="ft0">Couchbase Cluster Health Check Report</span></p>
+<p class="p1"><span class="ft1">Tool Version: $globals['versions']</span></p>
+<p class="p0"><span class="ft1">Execution Time: $globals['report_time'].strftime("%Y-%m-%d %H:%M:%S")</span></p>
 #if $globals.cluster_health == "Error"
-<P class="p2"><FONT class="ft2">Overall cluster health: </FONT><FONT class="ft30">Immediate action needed</FONT></P>
+<p class="p2"><span class="ft2">Overall cluster health: </span><span class="ft30">Immediate action needed</span></p>
 #elif $globals.cluster_health == "Warning"
-<P class="p2"><FONT class="ft2">Overall cluster health: </FONT><FONT class="ft31">Attention needed</FONT></P>
+<p class="p2"><span class="ft2">Overall cluster health: </span><span class="ft31">Attention needed</span></p>
 #else
-<P class="p2"><FONT class="ft2">Overall cluster health: </FONT><FONT class="ft32">OK</FONT></P>
+<p class="p2"><span class="ft2">Overall cluster health: </span><span class="ft32">OK</span></p>
 #end if
 #if $indicator_error_exist
-<P class="p3"><FONT class="ft4">Couchbase &#8211; Alerts</FONT></P>
-<P class="p4"><FONT class="ft5">Cluster-wide metrics</FONT></P>
+<p class="p3"><span class="ft4">Couchbase &#8211; Alerts</span></p>
+<p class="p4"><span class="ft5">Cluster-wide metrics</span></p>
 #for $counter in sorted($indicator_error.keys())
 #set $error_list = $indicator_error[$counter]
 #for $error_values in $error_list:
-<P class="p20"><FONT class="ft3">$error_values["description"]</FONT></P>
-<TABLE cellpadding=0 cellspacing=0 class="t0">
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Symptom</FONT></TD>
-	<TD class="td2"><FONT class="ft8">&nbsp;</FONT></TD>
-</TR>
+<p class="p20"><span class="ft3">$error_values["description"]</span></p>
+<table class="t0">
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Symptom</span></td>
+	<td class="td2"><span class="ft8">&nbsp;</span></td>
+</tr>
 #for $err_val in sorted($error_values["value"])
-<TR class="tr1">
-	<TD class="td0">&nbsp;</TD>
-	<TD class="td3" colspan=2><FONT class="ft6">Bucket : $error_values["bucket"] , </FONT>
-	<FONT class="ft9">Node : $err_val["node"]</FONT></TD>
-</TR>
-<TR class="tr1">
-	<TD class="td0">&nbsp;</TD>
-	<TD class="td3"><FONT class="ft6">Value :  </FONT></TD>
-	<TD class="td4"><FONT class="ft9"> $err_val["value"]</FONT></TD>
-</TR>
+<tr class="tr1">
+	<td class="td0">&nbsp;</td>
+	<td class="td3" colspan=2><span class="ft6">Bucket : $error_values["bucket"] , </span>
+	<span class="ft9">Node : $err_val["node"]</span></td>
+</tr>
+<tr class="tr1">
+	<td class="td0">&nbsp;</td>
+	<td class="td3"><span class="ft6">Value :  </span></td>
+	<td class="td4"><span class="ft9"> $err_val["value"]</span></td>
+</tr>
 #end for
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Causes -</FONT></TD>
-	<TD class="td2"><FONT class="ft9">$error_values["cause"]</FONT></TD>
-</TR>
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Impact -</FONT></TD>
-	<TD class="td2"><FONT class="ft9">$error_values["impact"]</FONT></TD>
-</TR>
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Action -</FONT></TD>
-	<TD class="td2"><FONT class="ft9">$error_values["action"]</FONT></TD>
-</TR>
-</TABLE>
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Causes -</span></td>
+	<td class="td2"><span class="ft9">$error_values["cause"]</span></td>
+</tr>
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Impact -</span></td>
+	<td class="td2"><span class="ft9">$error_values["impact"]</span></td>
+</tr>
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Action -</span></td>
+	<td class="td2"><span class="ft9">$error_values["action"]</span></td>
+</tr>
+</table>
 #end for
 #end for
 #end if
-<P class="p4"><FONT class="ft4">Couchbase Cluster Overview</FONT></P>
-<P class="p11"><FONT class="ft5">Node list</FONT></P>
-<TABLE cellpadding=0 cellspacing=0 class="t1">
-<TR class="tr6">
-	<TD class="td5"><FONT class="ft15">Node IP</FONT></TD>
-	<TD class="td6"><FONT class="ft15">Couchbase Server Version</FONT></TD>
-	<TD class="td7"><FONT class="ft15">Status</FONT></TD>
-</TR>
+<p class="p4"><span class="ft4">Couchbase Cluster Overview</span></p>
+<p class="p11"><span class="ft5">Node list</span></p>
+<table class="t1">
+<tr class="tr6">
+	<td class="td5"><span class="ft15">Node IP</span></td>
+	<td class="td6"><span class="ft15">Couchbase Server Version</span></td>
+	<td class="td7"><span class="ft15">Status</span></td>
+</tr>
 #for $node in sorted($node_list["nodeList"]["value"])
-<TR class="tr6">
-	<TD class="td8">$node["host"]</TD>
-	<TD class="td9">$node["version"]</TD>
-	<TD class="td10">$node["status"]</TD>
-</TR>
+<tr class="tr6">
+	<td class="td8">$node["host"]</td>
+	<td class="td9">$node["version"]</td>
+	<td class="td10">$node["status"]</td>
+</tr>
 #end for
-</TABLE>
-<P class="p8"><FONT class="ft16">&#8226; </FONT><FONT class="ft17">Total number of nodes in the cluster: $node_list["numNodes"]["value"] </FONT></P>
-<P class="p8"><FONT class="ft16">&#8226; </FONT><FONT class="ft17">Number of down nodes: $node_list["numDownNodes"]["value"] </FONT></P>
-<P class="p8"><FONT class="ft16">&#8226; </FONT><FONT class="ft17">Number of warming up nodes: $node_list["numWarmupNodes"]["value"] </FONT></P>
-<P class="p11"><FONT class="ft5">Cluster-wide metrics</FONT></P>
-<TABLE cellpadding=0 cellspacing=0 class="t1">
+</table>
+<p class="p8"><span class="ft16">&#8226; </span><span class="ft17">Total number of nodes in the cluster: $node_list["numNodes"]["value"] </span></p>
+<p class="p8"><span class="ft16">&#8226; </span><span class="ft17">Number of down nodes: $node_list["numDownNodes"]["value"] </span></p>
+<p class="p8"><span class="ft16">&#8226; </span><span class="ft17">Number of warming up nodes: $node_list["numWarmupNodes"]["value"] </span></p>
+<p class="p11"><span class="ft5">Cluster-wide metrics</span></p>
+<table class="t1">
 #for $key in sorted($cluster_symptoms.keys())
 #set $value = $cluster_symptoms[$key]
-<TR class="tr4">
-	<TD class="td11">$value["description"]</TD>
-	<TD class="td12">$value["value"]</TD>
-</TR>
+<tr class="tr4">
+	<td class="td11">$value["description"]</td>
+	<td class="td12">$value["value"]</td>
+</tr>
 #end for
-</TABLE>
-<P class="p11"><FONT class="ft5">Bucket metrics</FONT></P>
+</table>
+<p class="p11"><span class="ft5">Bucket metrics</span></p>
 #for $bucket in sorted($bucket_list.keys())
 #set $status = $bucket_list[$bucket]
-<P class="p2"><FONT class="ft2">Bucket name: </FONT><FONT class="ft3">$bucket</FONT></P>
+<p class="p2"><span class="ft2">Bucket name: </span><span class="ft3">$bucket</span></p>
 #if $status == "Error"
-<P class="p10"><FONT class="ft2">Status &#8211; </FONT><FONT class="ft30">Immediate action needed</FONT></P>
+<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft30">Immediate action needed</span></p>
 #elif $status == "Warning"
-<P class="p10"><FONT class="ft2">Status &#8211; </FONT><FONT class="ft31">Attention needed</FONT></P>
+<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft31">Attention needed</span></p>
 #else
-<P class="p10"><FONT class="ft2">Status &#8211; </FONT><FONT class="ft32">OK</FONT></P>
+<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft32">OK</span></p>
 #end if
-<TABLE cellpadding=0 cellspacing=0 class="t3">
+<table class="t3">
 #for $symptom in sorted($bucket_symptoms[$bucket])
-<TR class="tr6">
-	<TD class="td18">&nbsp;</TD>
-	<TD class="td11">$symptom["description"]</TD>
+<tr class="tr6">
+	<td class="td18">&nbsp;</td>
+	<td class="td11">$symptom["description"]</td>
 #if $symptom["status"] == "Error"
-	<TD class="tdr">$symptom["value"]</TD>
+	<td class="tdr">$symptom["value"]</td>
 #elif $symptom["status"] == "Warning"
-	<TD class="tdy">$symptom["value"]</TD>
+	<td class="tdy">$symptom["value"]</td>
 #else
-	<TD class="td12">$symptom["value"]</TD>
+	<td class="td12">$symptom["value"]</td>
 #end if
-</TR>
+</tr>
 #end for
-</TABLE>
+</table>
 #if $verbose
 #for $node in sorted($bucket_node_symptoms[$bucket])
 #set $node_values = $bucket_node_symptoms[$bucket][$node]
-<P class="p12"><FONT class="ft2">IP address: $node</FONT></P>
+<p class="p12"><span class="ft2">IP address: $node</span></p>
 #if $bucket_node_status[$bucket].has_key($node)
 #if $bucket_node_status[$bucket][$node] == "Error"
-<P class="p10"><FONT class="ft2">Status &#8211; </FONT><FONT class="ft30">Immediate action needed</FONT></P>
+<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft30">Immediate action needed</span></p>
 #elif $bucket_node_status[$bucket][$node] == "Warning"
-<P class="p10"><FONT class="ft2">Status &#8211; </FONT><FONT class="ft31">Attention needed</FONT></P>
+<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft31">Attention needed</span></p>
 #else
-<P class="p10"><FONT class="ft2">Status &#8211; </FONT><FONT class="ft32">OK</FONT></P>
+<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft32">OK</span></p>
 #end if
 #else
-<P class="p10"><FONT class="ft2">Status &#8211; </FONT><FONT class="ft32">OK</FONT></P>
+<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft32">OK</span></p>
 #end if
-<TABLE cellpadding=0 cellspacing=0 class="t3">
+<table class="t3">
 #for $node_value in sorted($node_values)
-<TR class="tr6">
-	<TD class="td18">&nbsp;</TD>
-	<TD class="td11">$node_value["description"]</TD>
+<tr class="tr6">
+	<td class="td18">&nbsp;</td>
+	<td class="td11">$node_value["description"]</td>
 #if $node_value["status"] == "Error"
-	<TD class="tdr">$node_value["value"]</TD>
+	<td class="tdr">$node_value["value"]</td>
 #elif $node_value["status"] == "Warning"
-	<TD class="tdy">$node_value["value"]</TD>
+	<td class="tdy">$node_value["value"]</td>
 #else
-	<TD class="td12">$node_value["value"]</TD>
+	<td class="td12">$node_value["value"]</td>
 #end if
-</TR>
+</tr>
 #end for
-</TABLE>
+</table>
 #end for
 #end if
 #end for
 #if $indicator_warn_exist
-<P class="p13"><FONT class="ft4">Couchbase &#8211; Warning Indicators</FONT></P>
-<P class="p14"><FONT class="ft5">Cluster-wide metrics</FONT></P>
+<p class="p13"><span class="ft4">Couchbase &#8211; Warning Indicators</span></p>
+<p class="p14"><span class="ft5">Cluster-wide metrics</span></p>
 #for $counter in sorted($indicator_warn)
 #set $warn_list = $indicator_warn[$counter]
 #for $warn_values in $warn_list
-<P class="p0"><FONT class="ft3">$warn_values["description"]</FONT></P>
-<TABLE cellpadding=0 cellspacing=0 class="t0">
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Symptom</FONT></TD>
-	<TD class="td2"><FONT class="ft8">&nbsp;</FONT></TD>
-</TR>
+<p class="p0"><span class="ft3">$warn_values["description"]</span></p>
+<table class="t0">
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Symptom</span></td>
+	<td class="td2"><span class="ft8">&nbsp;</span></td>
+</tr>
 #for $warn_val in sorted($warn_values["value"])
-<TR class="tr1">
-	<TD class="td0">&nbsp;</TD>
-	<TD class="td3" colspan="2"><FONT class="ft9">Bucket : $warn_values["bucket"] , </FONT>
-       <FONT class="ft9">Node : $warn_val["node"]</FONT></TD>
-</TR>
-<TR class="tr1">
-	<TD class="td0">&nbsp;</TD>
-	<TD class="td3"><FONT class="ft9">Value : </FONT></TD>
-	<TD class="td4"><FONT class="ft9">$warn_val["value"]</FONT></TD>
-</TR>
+<tr class="tr1">
+	<td class="td0">&nbsp;</td>
+	<td class="td3" colspan="2"><span class="ft9">Bucket : $warn_values["bucket"] , </span>
+       <span class="ft9">Node : $warn_val["node"]</span></td>
+</tr>
+<tr class="tr1">
+	<td class="td0">&nbsp;</td>
+	<td class="td3"><span class="ft9">Value : </span></td>
+	<td class="td4"><span class="ft9">$warn_val["value"]</span></td>
+</tr>
 #end for
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Causes -</FONT></TD>
-	<TD class="td2"><FONT class="ft9">$warn_values["cause"]</FONT></TD>
-</TR>
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Impact -</FONT></TD>
-	<TD class="td2"><FONT class="ft9">$warn_values["impact"]</FONT></TD>
-</TR>
-<TR class="tr0">
-	<TD class="td0">&#8226;</TD>
-	<TD class="td1"><FONT class="ft6">Action -</FONT></TD>
-	<TD class="td2"><FONT class="ft9">$warn_values["action"]</FONT></TD>
-</TR>
-</TABLE>
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Causes -</span></td>
+	<td class="td2"><span class="ft9">$warn_values["cause"]</span></td>
+</tr>
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Impact -</span></td>
+	<td class="td2"><span class="ft9">$warn_values["impact"]</span></td>
+</tr>
+<tr class="tr0">
+	<td class="td0">&#8226;</td>
+	<td class="td1"><span class="ft6">Action -</span></td>
+	<td class="td2"><span class="ft9">$warn_values["action"]</span></td>
+</tr>
+</table>
 #end for
 #end for
 #end if
-</DIV>
+</div>
 </body>
-</HTML>
+</html>
