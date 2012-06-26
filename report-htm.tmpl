@@ -1,6 +1,18 @@
 <!doctype html>
 <html>
 <head><title>sample-report-v2</title>
+<style media="all">
+body {font-family: Arial, sans-serif;}
+h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; }
+h1 {color: #17365d;font-weight: normal}
+h2 {color: #345a8a;}
+h3 {color: #4f81bd;}
+
+/** Couchbase sepcific styles **/
+.status-error {background: #f00;color:#fff;}
+.status-warning {background: #ff0;}
+.status-ok {background: #0f0;}
+</style>
 <style media="print">
 /* --------------------------------------------------------------
 Based on Hartija & Priss CSS Print  Frameworks
@@ -13,14 +25,12 @@ padding:0 !important;
 line-height: 1.4;
 word-spacing:1.1pt;
 letter-spacing:0.2pt;
-font-family: Arial, sans-serif;
 color: #000;
 background: none;
 font-size: 12pt;
 }
 
 /*Headings */
-h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; }
 h1{font-size:19pt;}
 h2{font-size:17pt;}
 h3{font-size:15pt;}
@@ -50,10 +60,6 @@ thead {display: table-header-group;}
 tr {page-break-inside: avoid;}
 
 article {page-break-after: always}
-
-/** Couchbase sepcific styles **/
-.tdr{background-color:#FF0000;color:#FFFFFF}
-.tdy{background-color:#FFFF00}
 </style>
 <style type="text/css" media="screen">
 
@@ -61,22 +67,20 @@ body {margin:10%;padding:0;font:16px 'Arial';}
 
 #page {position:relative; overflow: hidden;}
 
-h1 {padding-left: 2px;margin-top: 0px;margin-bottom: 0px;font: 25px 'Arial';color: #17365d;line-height: 30px;}
-h2 {font: bold 21px 'Arial';color: #345a8a;line-height: 24px;}
-h3 {font: bold 17px 'Arial';color: #4f81bd;line-height: 19px;}
+h1 {padding-left: 2px;margin-top: 0px;margin-bottom: 0px;font: 25px 'Arial';line-height: 30px;}
+h2 {font: bold 21px 'Arial';line-height: 24px;}
+h3 {font: bold 17px 'Arial';line-height: 19px;}
 ul {line-height:28px}
 ul ul {list-style: none}
 table td {padding:7px}
 
 .ft1{font: italic 19px 'Arial';color: #345a8a;line-height: 15px;}
-.ft2{font-weight: bold;line-height: 19px;}
 .ft6{white-space: nowrap;}
 .ft8{font-weight: bold;line-height: 19px;white-space: nowrap;}
 .ft9{font: 15px 'Arial';line-height: 17px;white-space: nowrap;}
 .ft15{font-weight: bold;line-height: 17px;white-space: nowrap;}
 .ft16{font: 16px 'Symbol';line-height: 29px;}
 .ft17{line-height: 27px;}
-.ft30{background-color:#FF0000;color:#FFFFFF}
 .ft31{background-color:#FFFF00}
 .ft32{background-color:#00FF00}
 
@@ -99,8 +103,6 @@ table td {padding:7px}
 .td4{text-align: left;padding-left: 0px;}
 .td5, .td6, .td7, .td8, .td9, .td10, .td11, .td12, .tdr, .tdy{border: 1pt solid black;text-align: left;padding-left: 7px;}
 .td18{border-right: #000000 1pt solid;text-align: left;padding-left: 0px;}
-.tdr{background-color:#FF0000;color:#FFFFFF}
-.tdy{background-color:#FFFF00}
 
 .t0, .t1, .t3{border-collapse: collapse;}
 .t0{margin-left: 26px;margin-top: 5px;font: 13px 'Symbol';line-height: 16px;}
@@ -116,11 +118,11 @@ table td {padding:7px}
 <p class="p1"><span class="ft1">Tool Version: $globals['versions']</span></p>
 <p class="p0"><span class="ft1">Execution Time: $globals['report_time'].strftime("%Y-%m-%d %H:%M:%S")</span></p>
 #if $globals.cluster_health == "Error"
-<p class="p2"><span class="ft2">Overall cluster health: </span><span class="ft30">Immediate action needed</span></p>
+<p class="p2"><strong>Overall cluster health: </strong><span class="status-error">Immediate action needed</span></p>
 #elif $globals.cluster_health == "Warning"
-<p class="p2"><span class="ft2">Overall cluster health: </span><span class="ft31">Attention needed</span></p>
+<p class="p2"><sstrong>Overall cluster health: </strong><span class="status-warning">Attention needed</span></p>
 #else
-<p class="p2"><span class="ft2">Overall cluster health: </span><span class="ft32">OK</span></p>
+<p class="p2"><strong>Overall cluster health: </strong><span class="status-ok">OK</span></p>
 #end if
 #if $indicator_error_exist
 <article>
@@ -182,22 +184,22 @@ table td {padding:7px}
 <h3>Bucket metrics</h3>
 #for $bucket in sorted($bucket_list.keys())
 #set $status = $bucket_list[$bucket]
-<p class="p2"><span class="ft2">Bucket name: </span><span class="ft3">$bucket</span></p>
+<p class="p2"><strong>Bucket name: </strong><span class="ft3">$bucket</span></p>
 #if $status == "Error"
-<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft30">Immediate action needed</span></p>
+<p class="p10"><strong>Status &#8211; </strong><span class="status-error">Immediate action needed</span></p>
 #elif $status == "Warning"
-<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft31">Attention needed</span></p>
+<p class="p10"><strong>Status &#8211; </strong><span class="status-warning">Attention needed</span></p>
 #else
-<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft32">OK</span></p>
+<p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
 #end if
 <table class="t3">
 #for $symptom in sorted($bucket_symptoms[$bucket])
 <tr class="tr6">
 	<td class="td11">$symptom["description"]</td>
 #if $symptom["status"] == "Error"
-	<td class="tdr">$symptom["value"]</td>
+	<td class="tdr status-error">$symptom["value"]</td>
 #elif $symptom["status"] == "Warning"
-	<td class="tdy">$symptom["value"]</td>
+	<td class="tdy status-warning">$symptom["value"]</td>
 #else
 	<td class="td12">$symptom["value"]</td>
 #end if
@@ -207,26 +209,26 @@ table td {padding:7px}
 #if $verbose
 #for $node in sorted($bucket_node_symptoms[$bucket])
 #set $node_values = $bucket_node_symptoms[$bucket][$node]
-<p class="p12"><span class="ft2">IP address: $node</span></p>
+<p class="p12"><strong>IP address: $node</strong></p>
 #if $bucket_node_status[$bucket].has_key($node)
 #if $bucket_node_status[$bucket][$node] == "Error"
-<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft30">Immediate action needed</span></p>
+<p class="p10"><strong>Status &#8211; </strong><span class="status-error">Immediate action needed</span></p>
 #elif $bucket_node_status[$bucket][$node] == "Warning"
-<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft31">Attention needed</span></p>
+<p class="p10"><strong>Status &#8211; </strong><span class="status-warning">Attention needed</span></p>
 #else
-<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft32">OK</span></p>
+<p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
 #end if
 #else
-<p class="p10"><span class="ft2">Status &#8211; </span><span class="ft32">OK</span></p>
+<p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
 #end if
 <table class="t3">
 #for $node_value in sorted($node_values)
 <tr class="tr6">
 	<td class="td11">$node_value["description"]</td>
 #if $node_value["status"] == "Error"
-	<td class="tdr">$node_value["value"]</td>
+	<td class="tdr status-error">$node_value["value"]</td>
 #elif $node_value["status"] == "Warning"
-	<td class="tdy">$node_value["value"]</td>
+	<td class="tdy status-warning">$node_value["value"]</td>
 #else
 	<td class="td12">$node_value["value"]</td>
 #end if
