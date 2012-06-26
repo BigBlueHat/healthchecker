@@ -94,13 +94,16 @@
   <h1>Couchbase Cluster Health Check Report</h1>
   <p class="p1"><span class="ft1">Tool Version: $globals['versions']</span></p>
   <p class="p0"><span class="ft1">Execution Time: $globals['report_time'].strftime("%Y-%m-%d %H:%M:%S")</span></p>
-  #if $globals.cluster_health == "Error"
-  <p class="p2"><strong>Overall cluster health: </strong><span class="status-error">Immediate action needed</span></p>
-  #elif $globals.cluster_health == "Warning"
-  <p class="p2"><strong>Overall cluster health: </strong><span class="status-warning">Attention needed</span></p>
-  #else
-  <p class="p2"><strong>Overall cluster health: </strong><span class="status-ok">OK</span></p>
-  #end if
+  <p class="p2">
+    <strong>Overall cluster health:</strong>
+    #if $globals.cluster_health == "Error"
+    <span class="status-error">Immediate action needed</span>
+    #elif $globals.cluster_health == "Warning"
+    <span class="status-warning">Attention needed</span>
+    #else
+    <span class="status-ok">OK</span>
+    #end if
+  </p>
 
   #if $indicator_error_exist
   <article>
@@ -168,13 +171,16 @@
     #for $bucket in sorted($bucket_list.keys())
       #set $status = $bucket_list[$bucket]
       <p class="p2"><strong>Bucket name: </strong><span class="ft3">$bucket</span></p>
-      #if $status == "Error"
-      <p class="p10"><strong>Status &#8211; </strong><span class="status-error">Immediate action needed</span></p>
-      #elif $status == "Warning"
-      <p class="p10"><strong>Status &#8211; </strong><span class="status-warning">Attention needed</span></p>
-      #else
-      <p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
-      #end if
+      <p class="p10">
+        <strong>Status &#8211; </strong>
+        #if $status == "Error"
+        <span class="status-error">Immediate action needed</span>
+        #elif $status == "Warning"
+        <span class="status-warning">Attention needed</span>
+        #else
+        <span class="status-ok">OK</span>
+        #end if
+      </p>
       <table class="t1">
       #for $symptom in sorted($bucket_symptoms[$bucket])
         <tr>
@@ -193,17 +199,19 @@
       #for $node in sorted($bucket_node_symptoms[$bucket])
         #set $node_values = $bucket_node_symptoms[$bucket][$node]
         <p class="p12"><strong>IP address: $node</strong></p>
+        <p class="p10"><strong>Status &#8211; </strong>
         #if $bucket_node_status[$bucket].has_key($node)
-          #if $bucket_node_status[$bucket][$node] == "Error"
-            <p class="p10"><strong>Status &#8211; </strong><span class="status-error">Immediate action needed</span></p>
-          #elif $bucket_node_status[$bucket][$node] == "Warning"
-            <p class="p10"><strong>Status &#8211; </strong><span class="status-warning">Attention needed</span></p>
-          #else
-            <p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
-          #end if
+            #if $bucket_node_status[$bucket][$node] == "Error"
+            <span class="status-error">Immediate action needed</span>
+            #elif $bucket_node_status[$bucket][$node] == "Warning"
+            <span class="status-warning">Attention needed</span>
+            #else
+            <span class="status-ok">OK</span>
+            #end if
         #else
-          <p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
+          <span class="status-ok">OK</span>
         #end if
+        </p>
         <table class="t1">
         #for $node_value in sorted($node_values)
           <tr>
