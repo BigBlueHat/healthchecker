@@ -7,6 +7,7 @@ h1,h2,h3,h4,h5,h6 { font-family: Helvetica, Arial, sans-serif; }
 h1 {color: #17365d;font-weight: normal}
 h2 {color: #345a8a;}
 h3 {color: #4f81bd;}
+ul ul {list-style: none}
 
 /** Couchbase sepcific styles **/
 .status-error {background: #f00;color:#fff;}
@@ -69,8 +70,7 @@ h1 {padding-left: 2px;margin-top: 0px;margin-bottom: 0px;font: 25px 'Arial';line
 h2 {font: bold 21px 'Arial';line-height: 24px;}
 h3 {font: bold 17px 'Arial';line-height: 19px;}
 ul {line-height:28px}
-ul ul {list-style: none}
-table td {padding:7px}
+td, th {padding:7px;border: 1pt solid black;}
 
 .ft1{font: italic 19px 'Arial';color: #345a8a;line-height: 15px;}
 .ft15{font-weight: bold;line-height: 17px;white-space: nowrap;}
@@ -80,8 +80,6 @@ table td {padding:7px}
 .p2{padding-left: 2px;margin-top: 3px;margin-bottom: 0px;}
 .p10{margin-top: 0px;margin-bottom: 0px;}
 .p12{margin-top: 38px;margin-bottom: 0px;}
-
-.td5, .td6, .td7, .td8, .td9, .td10, .td11, .td12, .tdr, .tdy{border: 1pt solid black;text-align: left;padding-left: 7px;}
 
 .t1, .t3{border-collapse: collapse;}
 .t1{margin-left: 26px;margin-top: 51px;}
@@ -96,7 +94,7 @@ table td {padding:7px}
 #if $globals.cluster_health == "Error"
 <p class="p2"><strong>Overall cluster health: </strong><span class="status-error">Immediate action needed</span></p>
 #elif $globals.cluster_health == "Warning"
-<p class="p2"><sstrong>Overall cluster health: </strong><span class="status-warning">Attention needed</span></p>
+<p class="p2"><strong>Overall cluster health: </strong><span class="status-warning">Attention needed</span></p>
 #else
 <p class="p2"><strong>Overall cluster health: </strong><span class="status-ok">OK</span></p>
 #end if
@@ -129,16 +127,18 @@ table td {padding:7px}
 <h2>Couchbase Cluster Overview</h2>
 <h3>Node list</h3>
 <table class="t1">
-<tr class="tr6">
-	<td class="td5"><span class="ft15">Node IP</span></td>
-	<td class="td6"><span class="ft15">Couchbase Server Version</span></td>
-	<td class="td7"><span class="ft15">Status</span></td>
+<thead>
+<tr>
+	<th>Node IP</th>
+	<th>Couchbase Server Version</th>
+	<th>Status</th>
 </tr>
+</thead>
 #for $node in sorted($node_list["nodeList"]["value"])
-<tr class="tr6">
-	<td class="td8">$node["host"]</td>
-	<td class="td9">$node["version"]</td>
-	<td class="td10">$node["status"]</td>
+<tr>
+	<td>$node["host"]</td>
+	<td>$node["version"]</td>
+	<td>$node["status"]</td>
 </tr>
 #end for
 </table>
@@ -151,9 +151,9 @@ table td {padding:7px}
 <table class="t1">
 #for $key in sorted($cluster_symptoms.keys())
 #set $value = $cluster_symptoms[$key]
-<tr class="tr4">
-	<td class="td11">$value["description"]</td>
-	<td class="td12">$value["value"]</td>
+<tr>
+	<td>$value["description"]</td>
+	<td>$value["value"]</td>
 </tr>
 #end for
 </table>
@@ -168,16 +168,16 @@ table td {padding:7px}
 #else
 <p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
 #end if
-<table class="t3">
+<table class="t1">
 #for $symptom in sorted($bucket_symptoms[$bucket])
-<tr class="tr6">
-	<td class="td11">$symptom["description"]</td>
+<tr>
+	<td>$symptom["description"]</td>
 #if $symptom["status"] == "Error"
-	<td class="tdr status-error">$symptom["value"]</td>
+	<td class="status-error">$symptom["value"]</td>
 #elif $symptom["status"] == "Warning"
-	<td class="tdy status-warning">$symptom["value"]</td>
+	<td class="status-warning">$symptom["value"]</td>
 #else
-	<td class="td12">$symptom["value"]</td>
+	<td>$symptom["value"]</td>
 #end if
 </tr>
 #end for
@@ -197,16 +197,16 @@ table td {padding:7px}
 #else
 <p class="p10"><strong>Status &#8211; </strong><span class="status-ok">OK</span></p>
 #end if
-<table class="t3">
+<table class="t1">
 #for $node_value in sorted($node_values)
-<tr class="tr6">
-	<td class="td11">$node_value["description"]</td>
+<tr>
+	<td>$node_value["description"]</td>
 #if $node_value["status"] == "Error"
-	<td class="tdr status-error">$node_value["value"]</td>
+	<td class="status-error">$node_value["value"]</td>
 #elif $node_value["status"] == "Warning"
-	<td class="tdy status-warning">$node_value["value"]</td>
+	<td class="status-warning">$node_value["value"]</td>
 #else
-	<td class="td12">$node_value["value"]</td>
+	<td>$node_value["value"]</td>
 #end if
 </tr>
 #end for
